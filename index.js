@@ -25,14 +25,17 @@ var date = new Date("2022-07-01");
 const querys = [];
 
 while (date < new Date("2023-08-01")) {
+  date.setDate(1);
   date.setMonth(date.getMonth() + 1);
 
   const dateStr = `${date.getFullYear()}-${date.getMonth() + 1}`;
 
+  console.log(date);
+
   const query = `SELECT caixa.idcaixa, caixa.dateTime as data, Contrato.idContrato, Contrato.ValorFace as face, Contrato.FatorCompra as compra, caixa.valor, Contrato.DataVencimento as vencimento, caixa.sobre FROM caixa
 INNER JOIN Contrato ON Contrato.idContrato = caixa.idContrato
 WHERE (dateTime > "${dateStr}-01" AND dateTime < "${dateStr}-31")
-AND (sobre like "%COMPRA%") AND unidade = 1`;
+AND (sobre like "%COMPRA%") AND unidade = 3`;
 
   const worksheet = workbook.addWorksheet(dateStr);
 
